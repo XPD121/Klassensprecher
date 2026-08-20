@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klassensprecher — Christopher Schule Reim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #1B3A5C;
+    --bg-soft: #234a72;
+    --paper: #FFFDF7;
+    --ink: #12233A;
+    --yellow: #FFC93C;
+    --coral: #FF6B5B;
+    --green: #6FCF97;
+    --line: rgba(255,255,255,0.14);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--paper);
+    font-family:'Nunito Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Fredoka', sans-serif;
+    font-weight:700;
+    letter-spacing: -0.01em;
+  }
+  .wrap{ max-width: 880px; margin:0 auto; padding: 0 24px; }
+
+  /* subtle chalk-dust texture */
+  .bg-dots{
+    position: fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+
+  header{
+    position: relative; z-index:1;
+    padding: 56px 0 88px;
+    text-align:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background: var(--yellow); color: var(--ink);
+    font-family:'Fredoka'; font-weight:600; font-size: 13px;
+    padding: 7px 16px; border-radius: 999px;
+    transform: rotate(-2deg);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  }
+  h1.display{
+    font-size: clamp(38px, 8vw, 64px);
+    margin: 24px 0 8px;
+    line-height: 1.05;
+  }
+  h1.display span{ color: var(--yellow); }
+  .school{
+    font-size: 16px; opacity:0.75; margin: 0 0 28px;
+  }
+  .slogan{
+    font-family:'Fredoka'; font-weight:600;
+    font-size: clamp(18px, 3.2vw, 24px);
+    color: var(--coral);
+    margin: 0 0 40px;
+  }
+
+  /* Signature element: sticker ballot vote box */
+  .ballot{
+    position: relative; z-index:1;
+    background: var(--paper); color: var(--ink);
+    max-width: 420px; margin: 0 auto;
+    border-radius: 18px;
+    padding: 28px 26px 26px;
+    transform: rotate(1.2deg);
+    box-shadow: 0 14px 0 rgba(0,0,0,0.18), 0 20px 40px rgba(0,0,0,0.25);
+  }
+  .ballot::before{
+    content:'';
+    position:absolute; top:-14px; left:50%; transform: translateX(-50%) rotate(-4deg);
+    width: 64px; height: 26px;
+    background: rgba(255,201,60,0.85);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .ballot h3{ margin:6px 0 4px; font-size: 20px; }
+  .ballot p.hint{ margin:0 0 18px; font-size: 13.5px; opacity:0.65; }
+  .vote-btn{
+    width:100%; border:none; cursor:pointer;
+    background: var(--coral); color:white;
+    font-family:'Fredoka'; font-weight:600; font-size: 17px;
+    padding: 16px; border-radius: 12px;
+    box-shadow: 0 5px 0 #c94636;
+    transition: transform 0.08s ease;
+  }
+  .vote-btn:active{ transform: translateY(4px); box-shadow: 0 1px 0 #c94636; }
+  .vote-btn:disabled{
+    background: var(--green); box-shadow: 0 5px 0 #4a9d6d; cursor:default;
+  }
+  .count-row{
+    display:flex; align-items:baseline; justify-content:center; gap:8px;
+    margin-top: 18px;
+  }
+  .count-num{ font-family:'Fredoka'; font-weight:700; font-size: 34px; color: var(--coral); }
+  .count-label{ font-size: 13px; opacity:0.65; }
+
+  section{ position:relative; z-index:1; padding: 60px 0; }
+  .reasons h2{ font-size: clamp(26px,5vw,34px); text-align:center; margin: 0 0 8px; }
+  .reasons .sub{ text-align:center; opacity:0.7; margin:0 0 40px; }
+  .cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:18px; }
+  .card{
+    background: var(--bg-soft); border:1px solid var(--line);
+    border-radius: 16px; padding: 24px 20px;
+  }
+  .card .num{
+    font-family:'Fredoka'; font-weight:700; font-size:13px;
+    color: var(--yellow); margin-bottom:10px;
+  }
+  .card h3{ font-size: 18px; margin: 0 0 8px; }
+  .card p{ font-size: 14.5px; line-height:1.55; opacity:0.85; margin:0; }
+
+  .contact{ text-align:center; }
+  .contact h2{ font-size: clamp(24px,5vw,30px); margin-bottom:10px; }
+  .contact .sub{ opacity:0.75; margin-bottom:28px; }
+  .msg-box{
+    background: var(--paper); color: var(--ink);
+    border-radius:16px; padding:22px; max-width: 460px; margin:0 auto;
+  }
+  .msg-box textarea{
+    width:100%; min-height:90px; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:12px; font-family:'Nunito Sans'; font-size:14.5px; resize:vertical;
+  }
+  .msg-box input{
+    width:100%; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:10px 12px; font-family:'Nunito Sans'; font-size:14.5px; margin-bottom:10px;
+  }
+  .msg-box button{
+    margin-top:12px; width:100%; border:none; cursor:pointer;
+    background: var(--ink); color:white; font-family:'Fredoka'; font-weight:600;
+    padding:13px; border-radius:10px; font-size:15px;
+  }
+  .msg-status{ font-size:13px; margin-top:10px; min-height:16px; }
+  .in-person{
+    margin-top:20px; font-size:14px; opacity:0.75;
+  }
+
+  footer{
+    text-align:center; padding: 30px 0 50px; font-size:12.5px; opacity:0.5;
+    position:relative; z-index:1;
+  }
+
+  .admin-link{
+    margin-top: 22px; background:none; border:1px solid var(--line);
+    color: var(--paper); opacity:0.6; font-size:12.5px;
+    padding: 8px 14px; border-radius: 8px; cursor:pointer;
+    font-family:'Nunito Sans';
+  }
+  .admin-link:hover{ opacity:1; }
+
+  .admin-overlay{
+    display:none; position:fixed; inset:0; z-index:50;
+    background: rgba(18,35,58,0.85); backdrop-filter: blur(3px);
+    align-items:center; justify-content:center; padding: 20px;
+  }
+  .admin-overlay.open{ display:flex; }
+  .admin-panel{
+    position:relative; background: var(--paper); color: var(--ink);
+    border-radius: 16px; padding: 30px 26px; max-width: 420px; width:100%;
+    max-height: 80vh; overflow-y:auto;
+  }
+  .admin-panel h3{ margin: 0 0 6px; }
+  .admin-panel .hint{ font-size:13px; opacity:0.65; margin: 0 0 18px; }
+  .admin-close{
+    position:absolute; top:14px; right:14px; border:none; background:none;
+    cursor:pointer; font-size:16px; opacity:0.5;
+  }
+  .admin-close:hover{ opacity:1; }
+  #adminPw{
+    width:100%; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:11px 12px; font-family:'Nunito Sans'; font-size:14.5px; margin-bottom:12px;
+  }
+  #adminLoginBtn{
+    width:100%; border:none; cursor:pointer; background: var(--coral); color:white;
+    font-family:'Fredoka'; font-weight:600; padding:13px; border-radius:10px; font-size:15px;
+  }
+  .admin-msg-list{ display:flex; flex-direction:column; gap:12px; max-height: 50vh; overflow-y:auto; }
+  .admin-msg{
+    background: #F7F4EA; border-radius: 4px 14px 14px 14px; padding:14px 16px;
+    text-align:left; position:relative;
+  }
+  .admin-msg .who{ font-family:'Fredoka'; font-weight:600; font-size:14px; margin-bottom:4px; }
+  .admin-msg .when{ font-size:11.5px; opacity:0.5; margin-bottom:8px; }
+  .admin-msg .body{ font-size:14px; line-height:1.5; padding-right: 30px; }
+  .admin-empty{ font-size:14px; opacity:0.6; text-align:center; padding: 20px 0; }
+  .msg-hide-btn{
+    position:absolute; top:12px; right:12px; border:none; background:none;
+    cursor:pointer; opacity:0.35; font-size:14px;
+  }
+  .msg-hide-btn:hover{ opacity:0.9; }
+
+  .admin-tabs{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .admin-tab{
+    flex:1; min-width: 46%; border:1.5px solid #e2ddce; background:none; cursor:pointer;
+    font-family:'Nunito Sans'; font-weight:700; font-size:12px;
+    padding:8px 6px; border-radius:10px; color: var(--ink); opacity:0.55;
+  }
+  .admin-tab.active{ opacity:1; background:#F7F4EA; border-color: var(--coral); }
+  #candidateNameInput{
+    width:100%; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:11px 12px; font-family:'Nunito Sans'; font-size:14.5px; margin-bottom:12px;
+  }
+  #saveNameBtn{
+    width:100%; border:none; cursor:pointer; background: var(--ink); color:white;
+    font-family:'Fredoka'; font-weight:600; padding:13px; border-radius:10px; font-size:15px;
+  }
+  #electionDateInput{
+    width:100%; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:10px 12px; font-family:'Nunito Sans'; font-size:14px; margin-bottom:10px;
+  }
+  #saveDateBtn{
+    width:100%; border:none; cursor:pointer; background: var(--ink); color:white;
+    font-family:'Fredoka'; font-weight:600; padding:12px; border-radius:10px; font-size:14.5px;
+  }
+  #pollQuestionInput, #pollOpt0, #pollOpt1, #pollOpt2, #pollOpt3{
+    width:100%; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:10px 12px; font-family:'Nunito Sans'; font-size:14px; margin-bottom:10px;
+  }
+  #startPollBtn{
+    width:100%; border:none; cursor:pointer; background: var(--coral); color:white;
+    font-family:'Fredoka'; font-weight:600; padding:13px; border-radius:10px; font-size:15px;
+  }
+  #endPollBtn{ margin-top:14px; }
+
+  .privacy-link{
+    margin-top:8px; background:none; border:none; text-decoration:underline;
+    color: var(--paper); opacity:0.5; font-size:11.5px; cursor:pointer;
+    font-family:'Nunito Sans'; padding:0;
+  }
+  .privacy-link:hover{ opacity:0.9; }
+  .privacy-text p{ font-size:13.5px; line-height:1.6; margin: 0 0 14px; }
+
+  /* Chatverlauf des Besuchers (öffentliche Seite) */
+  .my-thread{
+    display:flex; flex-direction:column; gap:8px; margin-bottom:16px;
+    max-height: 260px; overflow-y:auto;
+  }
+  .bubble{ max-width: 85%; padding: 10px 13px; border-radius: 14px; font-size:14px; line-height:1.45; }
+  .bubble.mine{ align-self:flex-end; background: var(--coral); color:white; border-bottom-right-radius:4px; }
+  .bubble.reply{ align-self:flex-start; background:#F0EDE0; color: var(--ink); border-bottom-left-radius:4px; }
+  .bubble .tag{ display:block; font-size:10.5px; opacity:0.7; margin-bottom:3px; font-family:'Fredoka'; }
+
+  /* Antwortfeld im Admin-Panel */
+  .admin-reply{ margin-top:10px; }
+  .admin-reply textarea{
+    width:100%; min-height:50px; border-radius:8px; border:1.5px solid #e2ddce;
+    padding:8px 10px; font-family:'Nunito Sans'; font-size:13.5px; resize:vertical;
+  }
+  .admin-reply button{
+    margin-top:6px; border:none; cursor:pointer; background: var(--ink); color:white;
+    font-family:'Fredoka'; font-weight:600; padding:8px 14px; border-radius:8px; font-size:13px;
+  }
+  .admin-reply .already{
+    background:#EAF6EE; border-radius:8px; padding:8px 10px; font-size:13px; margin-top:6px;
+  }
+  .admin-reply .already .tag{ font-size:10.5px; opacity:0.6; display:block; margin-bottom:2px; }
+
+  /* Neuigkeiten (öffentlich) */
+  .news-list{ display:flex; flex-direction:column; gap:14px; max-width: 560px; margin:0 auto; }
+  .news-item{
+    background: var(--bg-soft); border:1px solid var(--line);
+    border-radius: 14px; padding: 18px 20px; text-align:left;
+  }
+  .news-item h3{ font-size:16.5px; margin:0 0 4px; }
+  .news-item .news-date{ font-size:11.5px; opacity:0.55; margin-bottom:8px; }
+  .news-item p{ font-size:14px; line-height:1.55; opacity:0.9; margin:0; }
+
+  /* Admin: Seite-Tab */
+  .secondary-btn{
+    width:100%; border:1.5px solid #e2ddce; cursor:pointer; background:none; color: var(--ink);
+    font-family:'Nunito Sans'; font-weight:700; padding:11px; border-radius:10px; font-size:13.5px;
+  }
+    width:100%; border:1.5px solid #e2ddce; cursor:pointer; background:none; color: var(--ink);
+    font-family:'Nunito Sans'; font-weight:700; padding:11px; border-radius:10px; font-size:13.5px;
+  }
+  .admin-divider{ border:none; border-top:1px solid #e2ddce; margin:20px 0; }
+  #newsTitleInput, #newsBodyInput{
+    width:100%; border-radius:10px; border:1.5px solid #e2ddce;
+    padding:10px 12px; font-family:'Nunito Sans'; font-size:14px; margin-bottom:10px;
+  }
+  #newsBodyInput{ min-height:70px; resize:vertical; }
+  #postNewsBtn{
+    width:100%; border:none; cursor:pointer; background: var(--ink); color:white;
+    font-family:'Fredoka'; font-weight:600; padding:12px; border-radius:10px; font-size:14.5px;
+  }
+  .admin-news-list{ margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+  .admin-news-item{
+    background:#F7F4EA; border-radius:10px; padding:12px 14px; position:relative;
+  }
+  .admin-news-item h4{ font-size:14px; margin:0 0 3px; padding-right:26px; }
+  .admin-news-item p{ font-size:12.5px; opacity:0.75; margin:0; }
+  .news-hide-btn{
+    position:absolute; top:10px; right:10px; border:none; background:none;
+    cursor:pointer; opacity:0.4; font-size:13px;
+  }
+  .news-hide-btn:hover{ opacity:1; }
+
+  /* Countdown */
+  .countdown{
+    position:relative; z-index:1; display:inline-flex; flex-direction:column; align-items:center;
+    gap:6px; margin-top:26px; background: rgba(255,255,255,0.06); border:1px solid var(--line);
+    border-radius:14px; padding:12px 22px;
+  }
+  .countdown-label{ font-size:11.5px; opacity:0.6; letter-spacing:0.03em; text-transform:uppercase; }
+  .countdown-nums{ display:flex; gap:14px; font-family:'Fredoka'; }
+  .countdown-nums .unit{ text-align:center; }
+  .countdown-nums .num{ font-size:24px; font-weight:700; color: var(--yellow); display:block; line-height:1; }
+  .countdown-nums .lbl{ font-size:9.5px; opacity:0.55; text-transform:uppercase; }
+
+  /* Umfrage (öffentlich) */
+  .poll-section .wrap{ max-width:560px; }
+  .poll-section h2{ font-size: clamp(22px,4.5vw,28px); text-align:center; margin:0 0 22px; }
+  .poll-box{ display:flex; flex-direction:column; gap:10px; }
+  .poll-opt-btn{
+    width:100%; text-align:left; border:1.5px solid var(--line); background: var(--bg-soft);
+    color: var(--paper); font-family:'Nunito Sans'; font-weight:700; font-size:14.5px;
+    padding:14px 16px; border-radius:12px; cursor:pointer; transition: border-color 0.15s ease, transform 0.1s ease;
+  }
+  .poll-opt-btn:hover{ border-color: var(--coral); transform: translateX(3px); }
+  .poll-result-row{ }
+  .poll-result-row .row-top{ display:flex; justify-content:space-between; font-size:13.5px; margin-bottom:6px; }
+  .poll-result-row .row-top .pct{ font-family:'Fredoka'; color: var(--yellow); }
+  .poll-bar-track{ background: rgba(255,255,255,0.08); border-radius:8px; height:12px; overflow:hidden; }
+  .poll-bar-fill{ background: var(--coral); height:100%; border-radius:8px; transition: width 0.5s ease; }
+  .poll-total{ text-align:center; font-size:12.5px; opacity:0.55; margin-top:4px; }
+
+  /* Look-Upgrade: sanfte Einblend-Animationen */
+  @keyframes fadeUp{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform:none; } }
+  .eyebrow, h1.display, .school, .slogan, .ballot, .countdown{
+    animation: fadeUp 0.6s ease both;
+  }
+  .school{ animation-delay: 0.05s; }
+  .slogan{ animation-delay: 0.1s; }
+  .ballot{ animation-delay: 0.15s; }
+  .countdown{ animation-delay: 0.22s; }
+  .card{ transition: transform 0.18s ease, border-color 0.18s ease; }
+  .card:hover{ transform: translateY(-4px); border-color: var(--coral); }
+  .news-item, .admin-msg, .poll-opt-btn{ transition: transform 0.15s ease; }
+
+</style>
+</head>
+<body>
+<div class="bg-dots"></div>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">🗳️ Wahl zum Klassensprecher</span>
+    <h1 class="display">Wählt <span id="candidateNameHero">Klassensprecher</span></h1>
+    <p class="school">Christopher Schule · Reim, Bayern</p>
+    <p class="slogan">"Deine Stimme zählt — meine Ohren auch."</p>
+
+    <div class="ballot" id="ballotBox">
+      <h3>Gib deine Stimme ab</h3>
+      <p class="hint">Ein Klick pro Person — zählt sofort mit.</p>
+      <button class="vote-btn" id="voteBtn">Ich wähle dich! ✓</button>
+      <div class="count-row">
+        <span class="count-num" id="voteCount">–</span>
+        <span class="count-label">Stimmen bisher</span>
+      </div>
+    </div>
+
+    <div class="countdown" id="countdownBox" style="display:none;">
+      <span class="countdown-label">Noch bis zur Wahl</span>
+      <div class="countdown-nums" id="countdownNums"></div>
+    </div>
+  </div>
+</header>
+
+<section class="reasons">
+  <div class="wrap">
+    <h2>Warum mich wählen?</h2>
+    <p class="sub">Drei Dinge, für die ich mich einsetzen will.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Längere Pausen</h3>
+        <p>Ich setze mich dafür ein, dass wir mehr Zeit zum Durchatmen zwischen den Stunden bekommen.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Echtes Mitspracherecht</h3>
+        <p>Bei Ausflügen, Klassenfesten und Projekttagen soll die Klasse mitentscheiden — nicht nur zuhören.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Ein offenes Ohr</h3>
+        <p>Streit, Sorgen, Ideen: Ich bin ansprechbar und trage eure Anliegen zu den Lehrern.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="poll-section" id="pollSection" style="display:none;">
+  <div class="wrap">
+    <h2 id="pollQuestion">Frage</h2>
+    <div class="poll-box" id="pollOptionsBox"></div>
+    <div class="poll-box" id="pollResultsBox" style="display:none;"></div>
+  </div>
+</section>
+
+<section class="news" id="newsSection" style="display:none;">
+  <div class="wrap">
+    <h2>Neuigkeiten</h2>
+    <div id="newsList" class="news-list"></div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <h2>Kontakt aufnehmen</h2>
+    <p class="sub">Fragen, Ideen oder Feedback? Schreib mir direkt.</p>
+    <div class="msg-box">
+      <div id="myThread" class="my-thread" style="display:none;"></div>
+      <input type="text" id="nameInput" placeholder="Dein Name (optional)">
+      <textarea id="msgInput" placeholder="Deine Nachricht..."></textarea>
+      <button id="sendBtn">Nachricht senden</button>
+      <div class="msg-status" id="msgStatus"></div>
+    </div>
+    <p class="in-person">Oder einfach direkt im Schulhof ansprechen 👋</p>
+    <button id="adminOpenBtn" class="admin-link">🔒 Admin-Login</button>
+  </div>
+</section>
+
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <button class="admin-close" id="adminClose">✕</button>
+    <div id="adminLoginView">
+      <h3>Admin-Login</h3>
+      <p class="hint">Nur für dich — hier siehst du alle Nachrichten.</p>
+      <input type="password" id="adminPw" placeholder="Passwort">
+      <button id="adminLoginBtn">Anmelden</button>
+      <div class="msg-status" id="adminLoginStatus"></div>
+    </div>
+    <div id="adminMainView" style="display:none;">
+      <div class="admin-tabs">
+        <button class="admin-tab active" id="tabMsgs">💬 Nachrichten</button>
+        <button class="admin-tab" id="tabSettings">⚙️ Einstellungen</button>
+        <button class="admin-tab" id="tabSite">📰 Neuigkeiten</button>
+        <button class="admin-tab" id="tabPoll">📊 Umfrage</button>
+      </div>
+      <div id="adminMsgView">
+        <div id="adminMsgList" class="admin-msg-list"></div>
+      </div>
+      <div id="adminSettingsView" style="display:none;">
+        <p class="hint">Dein Name, wie er überall auf der Seite erscheint.</p>
+        <input type="text" id="candidateNameInput" placeholder="Dein Name">
+        <button id="saveNameBtn">Namen speichern</button>
+        <div class="msg-status" id="settingsStatus"></div>
+        <hr class="admin-divider">
+        <p class="hint">Countdown bis zum Wahltag (erscheint auf der Startseite).</p>
+        <input type="date" id="electionDateInput">
+        <button id="saveDateBtn">Datum speichern</button>
+        <div class="msg-status" id="dateStatus"></div>
+      </div>
+      <div id="adminSiteView" style="display:none;">
+        <p class="hint">Neuigkeit posten (erscheint oben auf der Seite).</p>
+        <input type="text" id="newsTitleInput" placeholder="Titel">
+        <textarea id="newsBodyInput" placeholder="Text der Neuigkeit..."></textarea>
+        <button id="postNewsBtn">Neuigkeit veröffentlichen</button>
+        <div class="msg-status" id="newsStatus"></div>
+        <div id="adminNewsList" class="admin-news-list"></div>
+      </div>
+      <div id="adminPollView" style="display:none;">
+        <div id="pollCreateBox">
+          <p class="hint">Frage stellen, bis zu 4 Antwortmöglichkeiten.</p>
+          <input type="text" id="pollQuestionInput" placeholder="Deine Frage">
+          <input type="text" id="pollOpt0" placeholder="Option 1">
+          <input type="text" id="pollOpt1" placeholder="Option 2">
+          <input type="text" id="pollOpt2" placeholder="Option 3 (optional)">
+          <input type="text" id="pollOpt3" placeholder="Option 4 (optional)">
+          <button id="startPollBtn">Umfrage starten</button>
+          <div class="msg-status" id="pollStatus"></div>
+        </div>
+        <div id="pollActiveBox" style="display:none;">
+          <p class="hint">Aktuell läuft:</p>
+          <div id="pollActiveInfo" class="admin-news-item" style="padding-right:14px;"></div>
+          <button id="endPollBtn" class="secondary-btn">Umfrage beenden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Wahlkampf-Webseite von <span id="candidateNameFooter">Klassensprecher</span> · Christopher Schule Reim
+  <br>
+  <button id="privacyOpenBtn" class="privacy-link">Datenschutzerklärung</button>
+</footer>
+
+<div class="admin-overlay" id="privacyOverlay">
+  <div class="admin-panel">
+    <button class="admin-close" id="privacyClose">✕</button>
+    <h3>Datenschutzerklärung</h3>
+    <div class="privacy-text">
+      <p><strong>Verantwortlicher:</strong> <span id="candidateNamePrivacy">Klassensprecher</span>, Christopher Schule Reim.</p>
+      <p><strong>Welche Daten werden erhoben?</strong> Wenn du das Kontaktformular nutzt, werden dein eingegebener Name (falls angegeben), deine Nachricht und der Sendezeitpunkt gespeichert. Beim Klick auf "Ich wähle dich!" wird nur gezählt, dass eine Stimme abgegeben wurde — nicht wer du bist.</p>
+      <p><strong>Wofür werden die Daten genutzt?</strong> Ausschließlich, damit ich als Kandidat/in Nachrichten lesen und beantworten kann. Es findet keine Weitergabe an Dritte statt.</p>
+      <p><strong>Wie lange werden Daten gespeichert?</strong> Bis ich Nachrichten manuell lösche.</p>
+      <p><strong>Deine Rechte:</strong> Du kannst jederzeit eine gesendete Nachricht per Ansprache im Schulhof zurückziehen oder deren Löschung verlangen.</p>
+      <p style="opacity:0.6; font-size:12.5px;">Hinweis: Dies ist eine einfache, faire Erklärung für eine private Schulprojekt-Seite ohne Firmen-Hintergrund und ersetzt keine rechtsverbindliche Beratung.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- Neuigkeiten laden (öffentliche Seite) ---
+async function loadPublicNews(){
+  try{
+    const list = await window.storage.list('news_', true);
+    const keys = (list && list.keys) ? list.keys : [];
+    const section = document.getElementById('newsSection');
+    if(keys.length === 0){ section.style.display = 'none'; return; }
+    const entries = [];
+    for(const key of keys){
+      try{
+        const res = await window.storage.get(key, true);
+        if(res) entries.push(JSON.parse(res.value));
+      }catch(e){}
+    }
+    entries.sort((a,b) => b.ts - a.ts);
+    section.style.display = 'block';
+    document.getElementById('newsList').innerHTML = entries.map(n => {
+      const date = new Date(n.ts).toLocaleDateString('de-DE');
+      return `<div class="news-item">
+        <h3>${n.title.replace(/</g,'&lt;')}</h3>
+        <div class="news-date">${date}</div>
+        <p>${n.body.replace(/</g,'&lt;')}</p>
+      </div>`;
+    }).join('');
+  }catch(e){ /* still fine */ }
+}
+loadPublicNews();
+setInterval(loadPublicNews, 8000);
+
+async function initVotes(){
+  const btn = document.getElementById('voteBtn');
+  const countEl = document.getElementById('voteCount');
+  const votedKey = 'has_voted';
+
+  async function refreshCount(){
+    try{
+      const res = await window.storage.get('vote_count', true);
+      countEl.textContent = res ? res.value : '0';
+    }catch(e){
+      countEl.textContent = '0';
+    }
+  }
+  await refreshCount();
+
+  let alreadyVoted = false;
+  try{
+    const localFlag = await window.storage.get(votedKey, false);
+    alreadyVoted = !!localFlag;
+  }catch(e){ alreadyVoted = false; }
+
+  if(alreadyVoted){
+    btn.disabled = true;
+    btn.textContent = 'Danke für deine Stimme! ✓';
+  }
+
+  btn.addEventListener('click', async () => {
+    if(btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Wird gezählt...';
+    try{
+      let current = 0;
+      try{
+        const res = await window.storage.get('vote_count', true);
+        current = res ? parseInt(res.value, 10) : 0;
+      }catch(e){ current = 0; }
+      const newCount = current + 1;
+      await window.storage.set('vote_count', String(newCount), true);
+      await window.storage.set(votedKey, 'true', false);
+      countEl.textContent = String(newCount);
+      btn.textContent = 'Danke für deine Stimme! ✓';
+    }catch(e){
+      btn.disabled = false;
+      btn.textContent = 'Ich wähle dich! ✓';
+    }
+  });
+}
+initVotes();
+
+// --- Name des Kandidaten (überall auf der Seite, live editierbar) ---
+const nameSpots = ['candidateNameHero','candidateNameFooter','candidateNamePrivacy'];
+async function loadCandidateName(){
+  try{
+    const res = await window.storage.get('candidate_name', true);
+    const name = (res && res.value) ? res.value : 'Klassensprecher';
+    nameSpots.forEach(id => { document.getElementById(id).textContent = name; });
+    return name;
+  }catch(e){
+    return 'Klassensprecher';
+  }
+}
+loadCandidateName();
+
+// --- Eigener Chatverlauf (für den Besucher, ohne Login) ---
+const MY_MSGS_KEY = 'my_sent_messages'; // persönlicher Speicher dieses Browsers
+let myThreadTimer = null;
+
+async function getMyMessageKeys(){
+  try{
+    const res = await window.storage.get(MY_MSGS_KEY, false);
+    return res ? JSON.parse(res.value) : [];
+  }catch(e){ return []; }
+}
+
+async function renderMyThread(){
+  const box = document.getElementById('myThread');
+  const keys = await getMyMessageKeys();
+  if(keys.length === 0){ box.style.display = 'none'; return; }
+  const entries = [];
+  for(const key of keys){
+    try{
+      const res = await window.storage.get(key, true);
+      if(res) entries.push(JSON.parse(res.value));
+    }catch(e){ /* Nachricht evtl. gelöscht */ }
+  }
+  entries.sort((a,b) => a.ts - b.ts);
+  if(entries.length === 0){ box.style.display = 'none'; return; }
+  box.style.display = 'flex';
+  box.innerHTML = entries.map(e => {
+    let html = `<div class="bubble mine"><span class="tag">Du</span>${e.msg.replace(/</g,'&lt;')}</div>`;
+    if(e.reply){
+      html += `<div class="bubble reply"><span class="tag">Antwort</span>${e.reply.replace(/</g,'&lt;')}</div>`;
+    }
+    return html;
+  }).join('');
+}
+renderMyThread();
+myThreadTimer = setInterval(renderMyThread, 6000);
+
+document.getElementById('sendBtn').addEventListener('click', async () => {
+  const name = document.getElementById('nameInput').value.trim() || 'Anonym';
+  const msg = document.getElementById('msgInput').value.trim();
+  const status = document.getElementById('msgStatus');
+  if(!msg){
+    status.textContent = 'Bitte schreib zuerst eine Nachricht.';
+    status.style.color = '#c94636';
+    return;
+  }
+  try{
+    const id = 'msg_' + Date.now();
+    await window.storage.set(id, JSON.stringify({name, msg, ts: Date.now(), reply: null}), true);
+    const myKeys = await getMyMessageKeys();
+    myKeys.push(id);
+    await window.storage.set(MY_MSGS_KEY, JSON.stringify(myKeys), false);
+    status.textContent = 'Nachricht gesendet — danke! ✓';
+    status.style.color = '#2d5a3d';
+    document.getElementById('msgInput').value = '';
+    document.getElementById('nameInput').value = '';
+    await renderMyThread();
+  }catch(e){
+    status.textContent = 'Senden hat nicht geklappt, versuch es nochmal.';
+    status.style.color = '#c94636';
+  }
+});
+
+// --- Admin-Bereich ---
+// Passwort steht hier im Code -- das ist kein echtes Sicherheitssystem,
+// sondern eine einfache Zugangssperre. Bitte änderst du es unten selbst!
+const ADMIN_PASSWORD = 'Polizei';
+
+const adminOverlay = document.getElementById('adminOverlay');
+const adminLoginView = document.getElementById('adminLoginView');
+const adminMainView = document.getElementById('adminMainView');
+const adminMsgList = document.getElementById('adminMsgList');
+const adminLoginStatus = document.getElementById('adminLoginStatus');
+let pollTimer = null;
+
+document.getElementById('adminOpenBtn').addEventListener('click', () => {
+  adminOverlay.classList.add('open');
+});
+function closeAdmin(){
+  adminOverlay.classList.remove('open');
+  if(pollTimer){ clearInterval(pollTimer); pollTimer = null; }
+}
+document.getElementById('adminClose').addEventListener('click', closeAdmin);
+adminOverlay.addEventListener('click', (e) => {
+  if(e.target === adminOverlay) closeAdmin();
+});
+
+document.getElementById('adminLoginBtn').addEventListener('click', async () => {
+  const pw = document.getElementById('adminPw').value;
+  if(pw !== ADMIN_PASSWORD){
+    adminLoginStatus.textContent = 'Falsches Passwort.';
+    adminLoginStatus.style.color = '#c94636';
+    return;
+  }
+  adminLoginView.style.display = 'none';
+  adminMainView.style.display = 'block';
+  await loadMessages();
+  pollTimer = setInterval(loadMessages, 4000); // fühlt sich an wie ein Live-Chat
+});
+
+// Tabs
+document.getElementById('tabMsgs').addEventListener('click', () => switchTab('msgs'));
+document.getElementById('tabSettings').addEventListener('click', async () => {
+  switchTab('settings');
+  const current = await loadCandidateName();
+  document.getElementById('candidateNameInput').value = current;
+  try{
+    const res = await window.storage.get('election_date', true);
+    document.getElementById('electionDateInput').value = res ? res.value : '';
+  }catch(e){}
+});
+document.getElementById('tabSite').addEventListener('click', async () => {
+  switchTab('site');
+  await loadAdminNews();
+});
+document.getElementById('tabPoll').addEventListener('click', async () => {
+  switchTab('poll');
+  await loadAdminPoll();
+});
+function switchTab(tab){
+  document.getElementById('tabMsgs').classList.toggle('active', tab === 'msgs');
+  document.getElementById('tabSettings').classList.toggle('active', tab === 'settings');
+  document.getElementById('tabSite').classList.toggle('active', tab === 'site');
+  document.getElementById('tabPoll').classList.toggle('active', tab === 'poll');
+  document.getElementById('adminMsgView').style.display = tab === 'msgs' ? 'block' : 'none';
+  document.getElementById('adminSettingsView').style.display = tab === 'settings' ? 'block' : 'none';
+  document.getElementById('adminSiteView').style.display = tab === 'site' ? 'block' : 'none';
+  document.getElementById('adminPollView').style.display = tab === 'poll' ? 'block' : 'none';
+}
+
+document.getElementById('saveDateBtn').addEventListener('click', async () => {
+  const val = document.getElementById('electionDateInput').value;
+  const status = document.getElementById('dateStatus');
+  try{
+    await window.storage.set('election_date', val, true);
+    status.textContent = 'Gespeichert ✓';
+    status.style.color = '#2d5a3d';
+    await loadCountdown();
+  }catch(e){
+    status.textContent = 'Konnte nicht gespeichert werden.';
+    status.style.color = '#c94636';
+  }
+});
+
+document.getElementById('saveNameBtn').addEventListener('click', async () => {
+  const newName = document.getElementById('candidateNameInput').value.trim();
+  const status = document.getElementById('settingsStatus');
+  if(!newName){
+    status.textContent = 'Bitte einen Namen eingeben.';
+    status.style.color = '#c94636';
+    return;
+  }
+  try{
+    await window.storage.set('candidate_name', newName, true);
+    nameSpots.forEach(id => { document.getElementById(id).textContent = newName; });
+    document.title = newName + ' — Christopher Schule Reim';
+    status.textContent = 'Gespeichert ✓';
+    status.style.color = '#2d5a3d';
+  }catch(e){
+    status.textContent = 'Konnte nicht gespeichert werden.';
+    status.style.color = '#c94636';
+  }
+});
+
+async function loadMessages(){
+  try{
+    const list = await window.storage.list('msg_', true);
+    const keys = (list && list.keys) ? list.keys : [];
+    if(keys.length === 0){
+      adminMsgList.innerHTML = '<div class="admin-empty">Noch keine Nachrichten da.</div>';
+      return;
+    }
+    const entries = [];
+    for(const key of keys){
+      try{
+        const res = await window.storage.get(key, true);
+        if(res) entries.push({key, data: JSON.parse(res.value)});
+      }catch(e){ /* skip broken entry */ }
+    }
+    entries.sort((a,b) => b.data.ts - a.data.ts);
+    adminMsgList.innerHTML = entries.map(e => {
+      const date = new Date(e.data.ts).toLocaleString('de-DE');
+      const safeName = e.data.name.replace(/</g,'&lt;');
+      const safeMsg = e.data.msg.replace(/</g,'&lt;');
+      const replyBlock = e.data.reply
+        ? `<div class="already"><span class="tag">Deine Antwort</span>${e.data.reply.replace(/</g,'&lt;')}</div>`
+        : `<div class="admin-reply">
+             <textarea placeholder="Antwort schreiben..." data-key="${e.key}"></textarea>
+             <button class="reply-send-btn" data-key="${e.key}">Antworten</button>
+           </div>`;
+      return `<div class="admin-msg">
+        <button class="msg-hide-btn" data-key="${e.key}" title="Nachricht löschen">🗑️</button>
+        <div class="who">${safeName}</div>
+        <div class="when">${date}</div>
+        <div class="body">${safeMsg}</div>
+        ${replyBlock}
+      </div>`;
+    }).join('');
+    adminMsgList.querySelectorAll('.msg-hide-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const key = btn.getAttribute('data-key');
+        try{ await window.storage.delete(key, true); }catch(e){}
+        loadMessages();
+      });
+    });
+    adminMsgList.querySelectorAll('.reply-send-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const key = btn.getAttribute('data-key');
+        const textarea = adminMsgList.querySelector(`textarea[data-key="${key}"]`);
+        const replyText = textarea.value.trim();
+        if(!replyText) return;
+        try{
+          const res = await window.storage.get(key, true);
+          if(res){
+            const data = JSON.parse(res.value);
+            data.reply = replyText;
+            await window.storage.set(key, JSON.stringify(data), true);
+          }
+        }catch(e){}
+        loadMessages();
+      });
+    });
+  }catch(e){
+    adminMsgList.innerHTML = '<div class="admin-empty">Nachrichten konnten nicht geladen werden.</div>';
+  }
+}
+
+// --- Datenschutz-Modal ---
+const privacyOverlay = document.getElementById('privacyOverlay');
+document.getElementById('privacyOpenBtn').addEventListener('click', () => {
+  privacyOverlay.classList.add('open');
+});
+document.getElementById('privacyClose').addEventListener('click', () => {
+  privacyOverlay.classList.remove('open');
+});
+privacyOverlay.addEventListener('click', (e) => {
+  if(e.target === privacyOverlay) privacyOverlay.classList.remove('open');
+});
+
+// --- Admin: Neuigkeiten verwalten ---
+document.getElementById('postNewsBtn').addEventListener('click', async () => {
+  const title = document.getElementById('newsTitleInput').value.trim();
+  const body = document.getElementById('newsBodyInput').value.trim();
+  const status = document.getElementById('newsStatus');
+  if(!title || !body){
+    status.textContent = 'Bitte Titel und Text ausfüllen.';
+    status.style.color = '#c94636';
+    return;
+  }
+  try{
+    const id = 'news_' + Date.now();
+    await window.storage.set(id, JSON.stringify({title, body, ts: Date.now()}), true);
+    document.getElementById('newsTitleInput').value = '';
+    document.getElementById('newsBodyInput').value = '';
+    status.textContent = 'Veröffentlicht ✓';
+    status.style.color = '#2d5a3d';
+    await loadAdminNews();
+    await loadPublicNews();
+  }catch(e){
+    status.textContent = 'Konnte nicht veröffentlicht werden.';
+    status.style.color = '#c94636';
+  }
+});
+
+async function loadAdminNews(){
+  const list = document.getElementById('adminNewsList');
+  try{
+    const res = await window.storage.list('news_', true);
+    const keys = (res && res.keys) ? res.keys : [];
+    if(keys.length === 0){ list.innerHTML = ''; return; }
+    const entries = [];
+    for(const key of keys){
+      try{
+        const r = await window.storage.get(key, true);
+        if(r) entries.push({key, data: JSON.parse(r.value)});
+      }catch(e){}
+    }
+    entries.sort((a,b) => b.data.ts - a.data.ts);
+    list.innerHTML = entries.map(e => {
+      const date = new Date(e.data.ts).toLocaleDateString('de-DE');
+      return `<div class="admin-news-item">
+        <button class="news-hide-btn" data-key="${e.key}" title="Löschen">🗑️</button>
+        <h4>${e.data.title.replace(/</g,'&lt;')}</h4>
+        <p>${date}</p>
+      </div>`;
+    }).join('');
+    list.querySelectorAll('.news-hide-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        try{ await window.storage.delete(btn.getAttribute('data-key'), true); }catch(e){}
+        await loadAdminNews();
+        await loadPublicNews();
+      });
+    });
+  }catch(e){
+    list.innerHTML = '';
+  }
+}
+
+// --- Countdown bis zum Wahltag (öffentlich) ---
+async function loadCountdown(){
+  const box = document.getElementById('countdownBox');
+  try{
+    const res = await window.storage.get('election_date', true);
+    const dateStr = res ? res.value : '';
+    if(!dateStr){ box.style.display = 'none'; return; }
+    const target = new Date(dateStr + 'T00:00:00').getTime();
+    const now = Date.now();
+    const diff = target - now;
+    if(diff <= 0){ box.style.display = 'none'; return; }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    box.style.display = 'inline-flex';
+    document.getElementById('countdownNums').innerHTML = `
+      <div class="unit"><span class="num">${days}</span><span class="lbl">Tage</span></div>
+      <div class="unit"><span class="num">${hours}</span><span class="lbl">Std</span></div>
+      <div class="unit"><span class="num">${mins}</span><span class="lbl">Min</span></div>
+    `;
+  }catch(e){ box.style.display = 'none'; }
+}
+loadCountdown();
+setInterval(loadCountdown, 30000);
+
+// --- Umfrage (öffentlich) ---
+async function loadPublicPoll(){
+  const section = document.getElementById('pollSection');
+  try{
+    const res = await window.storage.get('poll_active', true);
+    if(!res || !res.value){ section.style.display = 'none'; return; }
+    const poll = JSON.parse(res.value);
+    section.style.display = 'block';
+    document.getElementById('pollQuestion').textContent = poll.question;
+
+    let myVoteKey = 'poll_voted_' + poll.id;
+    let myVote = null;
+    try{
+      const mv = await window.storage.get(myVoteKey, false);
+      myVote = mv ? mv.value : null;
+    }catch(e){ myVote = null; }
+
+    const countsRes = await window.storage.get('poll_counts_' + poll.id, true).catch(() => null);
+    const counts = countsRes ? JSON.parse(countsRes.value) : {};
+    const total = poll.options.reduce((sum, _, i) => sum + (counts[i] || 0), 0);
+
+    if(myVote !== null){
+      document.getElementById('pollOptionsBox').style.display = 'none';
+      const resultsBox = document.getElementById('pollResultsBox');
+      resultsBox.style.display = 'flex';
+      resultsBox.innerHTML = poll.options.map((opt, i) => {
+        const c = counts[i] || 0;
+        const pct = total > 0 ? Math.round((c / total) * 100) : 0;
+        return `<div class="poll-result-row">
+          <div class="row-top"><span>${opt.replace(/</g,'&lt;')}</span><span class="pct">${pct}%</span></div>
+          <div class="poll-bar-track"><div class="poll-bar-fill" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('') + `<div class="poll-total">${total} Stimme${total===1?'':'n'} insgesamt</div>`;
+    }else{
+      document.getElementById('pollResultsBox').style.display = 'none';
+      const optBox = document.getElementById('pollOptionsBox');
+      optBox.style.display = 'flex';
+      optBox.innerHTML = poll.options.map((opt, i) =>
+        `<button class="poll-opt-btn" data-idx="${i}">${opt.replace(/</g,'&lt;')}</button>`
+      ).join('');
+      optBox.querySelectorAll('.poll-opt-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const idx = btn.getAttribute('data-idx');
+          try{
+            const cRes = await window.storage.get('poll_counts_' + poll.id, true).catch(() => null);
+            const c = cRes ? JSON.parse(cRes.value) : {};
+            c[idx] = (c[idx] || 0) + 1;
+            await window.storage.set('poll_counts_' + poll.id, JSON.stringify(c), true);
+            await window.storage.set(myVoteKey, idx, false);
+            await loadPublicPoll();
+          }catch(e){}
+        });
+      });
+    }
+  }catch(e){ section.style.display = 'none'; }
+}
+loadPublicPoll();
+setInterval(loadPublicPoll, 6000);
+
+// --- Umfrage (Admin) ---
+document.getElementById('startPollBtn').addEventListener('click', async () => {
+  const question = document.getElementById('pollQuestionInput').value.trim();
+  const opts = [
+    document.getElementById('pollOpt0').value.trim(),
+    document.getElementById('pollOpt1').value.trim(),
+    document.getElementById('pollOpt2').value.trim(),
+    document.getElementById('pollOpt3').value.trim(),
+  ].filter(o => o.length > 0);
+  const status = document.getElementById('pollStatus');
+  if(!question || opts.length < 2){
+    status.textContent = 'Frage + mindestens 2 Optionen nötig.';
+    status.style.color = '#c94636';
+    return;
+  }
+  try{
+    const id = String(Date.now());
+    const poll = {id, question, options: opts};
+    await window.storage.set('poll_active', JSON.stringify(poll), true);
+    status.textContent = 'Umfrage läuft ✓';
+    status.style.color = '#2d5a3d';
+    document.getElementById('pollQuestionInput').value = '';
+    ['pollOpt0','pollOpt1','pollOpt2','pollOpt3'].forEach(id => document.getElementById(id).value = '');
+    await loadAdminPoll();
+    await loadPublicPoll();
+  }catch(e){
+    status.textContent = 'Konnte nicht gestartet werden.';
+    status.style.color = '#c94636';
+  }
+});
+
+document.getElementById('endPollBtn').addEventListener('click', async () => {
+  try{
+    await window.storage.delete('poll_active', true);
+  }catch(e){}
+  await loadAdminPoll();
+  await loadPublicPoll();
+});
+
+async function loadAdminPoll(){
+  try{
+    const res = await window.storage.get('poll_active', true);
+    const createBox = document.getElementById('pollCreateBox');
+    const activeBox = document.getElementById('pollActiveBox');
+    if(!res || !res.value){
+      createBox.style.display = 'block';
+      activeBox.style.display = 'none';
+      return;
+    }
+    const poll = JSON.parse(res.value);
+    createBox.style.display = 'none';
+    activeBox.style.display = 'block';
+    document.getElementById('pollActiveInfo').innerHTML =
+      `<h4>${poll.question.replace(/</g,'&lt;')}</h4><p>${poll.options.length} Optionen</p>`;
+  }catch(e){}
+}
+</script>
+</body>
+</html>
